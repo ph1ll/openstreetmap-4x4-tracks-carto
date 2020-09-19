@@ -46,6 +46,8 @@ node,way   shop         text         polygon
 way        surface      text         linear
 node,way   tourism      text         polygon
 way        tracktype    text         linear
+way        motor_vehicle       text  linear
+way        smoothness          text  linear
 way        tunnel       text         linear
 node,way   water        text         polygon
 node,way   waterway     text         polygon

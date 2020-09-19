@@ -453,7 +453,9 @@ Layer:
             construction,
             service,
             link,
-            layernotnull
+            layernotnull,
+            'null' AS int_motor_vehicle,
+            'null' AS int_smoothness
           FROM ( -- subselect that contains both roads and rail
             SELECT
                 way,
@@ -699,7 +701,9 @@ Layer:
             construction,
             service,
             link,
-            layernotnull
+            layernotnull,
+            int_motor_vehicle,
+            int_smoothness
           FROM ( -- subselect that contains both roads and rail/aero
             SELECT
                 way,
@@ -715,6 +719,7 @@ Layer:
                 END AS int_surface,
                 CASE WHEN access IN ('destination') THEN 'destination'::text
                   WHEN access IN ('no', 'private') THEN 'no'::text
+                  ELSE 'yes'
                 END AS access,
                 construction,
                 CASE
@@ -726,6 +731,16 @@ Layer:
                   ELSE 'no'
                 END AS link,
                 COALESCE(layer,0) AS layernotnull,
+                CASE
+                  WHEN access IN ('yes') AND motor_vehicle in ('yes') THEN 'yes'
+                  WHEN access IS NULL AND motor_vehicle in ('yes') THEN 'yes'
+                  WHEN access IN ('yes') AND motor_vehicle IS NULL THEN 'unknown'
+                  WHEN access IS NULL AND motor_vehicle IS NULL THEN 'unknown'
+                END AS int_motor_vehicle,
+                CASE
+                  WHEN smoothness IS NULL THEN 'unknown'
+                  else smoothness
+                END AS int_smoothness,
                 osm_id,
                 z_order
               FROM planet_osm_line
@@ -753,6 +768,8 @@ Layer:
                 CASE WHEN service IN ('parking_aisle', 'drive-through', 'driveway') OR leisure IN ('slipway') THEN 'INT-minor'::text ELSE 'INT-normal'::text END AS service,
                 'no' AS link,
                 COALESCE(layer,0) AS layernotnull,
+                'null',
+                'null',
                 osm_id,
                 z_order
               FROM planet_osm_line
@@ -921,7 +938,9 @@ Layer:
             construction,
             service,
             link,
-            layernotnull
+            layernotnull,
+            'null' AS int_motor_vehicle,
+            'null' AS int_smoothness
           FROM ( -- subselect that contains both roads and rail/aero
             SELECT
                 way,

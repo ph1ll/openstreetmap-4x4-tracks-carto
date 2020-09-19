@@ -1,3 +1,7 @@
+# About this fork
+
+This fork adds additional styling to the default OpenStreetMap style to aid in the identification of 4x4 suitable tracks in the UK.
+
 # OpenStreetMap Carto
 
 ![screenshot](https://raw.github.com/gravitystorm/openstreetmap-carto/master/preview.png)

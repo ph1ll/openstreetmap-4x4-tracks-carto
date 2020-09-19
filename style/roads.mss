@@ -2073,6 +2073,42 @@ tertiary is rendered from z10 and is not included in osm_planet_roads. */
           }
         }
       }
+
+      [zoom >= 10] {
+        [int_motor_vehicle = 'unknown'] {
+          marker-file: url('symbols/4x4_tracks/unknown.svg');
+          marker-fill: grey;
+          marker-height: 10.0;
+          marker-allow-overlap: false;
+        }
+
+        [int_motor_vehicle = 'yes'] {
+          [int_smoothness = 'unknown'] {
+            marker-file: url('symbols/4x4_tracks/4x4.svg');
+            marker-fill: grey;
+            marker-height: 15.0;
+            marker-allow-overlap: true;
+          }
+          [int_smoothness = 'very_bad'] {
+            marker-file: url('symbols/4x4_tracks/4x4.svg');
+            marker-fill: green;
+            marker-height: 15.0;
+            marker-allow-overlap: true;
+          }
+          [int_smoothness = 'horrible'] {
+            marker-file: url('symbols/4x4_tracks/4x4.svg');
+            marker-fill: orange;
+            marker-height: 15.0;
+            marker-allow-overlap: true;
+          }
+          [int_smoothness = 'very_horrible'] {
+            marker-file: url('symbols/4x4_tracks/4x4.svg');
+            marker-fill: red;
+            marker-height: 15.0;
+            marker-allow-overlap: true;
+          } 
+        }
+      }
     }
 
     [feature = 'railway_rail'][zoom >= 8],
